@@ -2,7 +2,10 @@ const path = require("path");
 
 module.exports = {
     entry: {
-        main: "./src/pubon.js"
+        main: ["./src/pubon"]
+    },
+    resolve: {
+        extensions: [".js", ".ts"] 
     },
     mode: "development",
     output: {
@@ -11,7 +14,24 @@ module.exports = {
         publicPath: "/"
     },
     devServer: {
-        contentBase: "dist"
+        contentBase: "dist",
+        overlay: true,
+        stats: {
+            colors: true
+        }
+    },
+    devtool: "source-map",
+    module: {
+        rules: [
+            {
+                test: /\.ts$/,
+                exclude: /node_modules/,
+                use: [
+                    {
+                        loader: "awesome-typescript-loader"
+                    }
+                ]
+            }
+        ]
     }
-
 }

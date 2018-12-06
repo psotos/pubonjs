@@ -1,7 +1,7 @@
 import { Observable, Subject } from 'rxjs'; 
 
 export default class HttpCaller {
-  url = 'https://jsonplaceholder.typicode.com/posts';
+  private _url = 'https://jsonplaceholder.typicode.com/posts';
   responseListener = new Subject<string>();
 
   constructor(url: string) {
@@ -9,20 +9,32 @@ export default class HttpCaller {
     this.getData();
   }
 
-  getResponseListener(): Observable<string> {
+  get Url(): string {
+    return this._url;
+  }
+
+
+  public ResponseListener() {
     return this.responseListener.asObservable();
   }
 
  getData() {
     let data: string;
+    let url = this.Url;
+    let resListener = this.responseListener;
+
     // const testUrl = 'https://jsonplaceholder.typicode.com/posts';
-    console.log('Hello from getData()');
+    console.log('Hello from getData()', this.Url);
 
-    fetch(this.url)
+    fetch(url)
       .then(function(response) {
-        console.log(`received a response from ${this.url}`);
-
-        this.responseListener.next(response.json());
+        console.log('received a response from ', url);
+        response.json()
+        .then(res => {
+          let newRes: string = JSON.stringify(res);
+          resListener.next(newRes);
+        })        
+        
       })
       .then(function(myJson) {
         console.log(JSON.stringify(myJson));

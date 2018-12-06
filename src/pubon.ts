@@ -12,7 +12,7 @@ export class Greeting {
     greeting(greeting: string) {
        const caller = new HttpCaller("https://jsonplaceholder.typicode.com/posts");
    
-        this.dataSub = caller.getResponseListener()
+        this.dataSub = caller.ResponseListener()
         .subscribe((response: string) => {
            document.getElementById("code").innerHTML = response;
            console.log('Hello from Typescript');

@@ -2,28 +2,26 @@ import { Subscription } from 'rxjs';
 
 import  HttpCaller from './httpCaller';
 
-export class Greeting {
+export class Posts {
     dataSub: Subscription;
 
-    constructor() {
-        this.greeting('');
+    constructor() {        
     }
 
-    greeting(greeting: string) {
+    getPosts() {
        const caller = new HttpCaller("https://jsonplaceholder.typicode.com/posts");
    
         this.dataSub = caller.ResponseListener()
         .subscribe((response: string) => {
            document.getElementById("code").innerHTML = response;
            console.log('Hello from Typescript');
-        });
-       console.log(greeting);
+        });   
    }
 }
 
 function start() {
-    const greet = new Greeting();
-    greet.greeting('');
+    const posts = new Posts();
+    posts.getPosts();
 
 }
 

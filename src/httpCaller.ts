@@ -1,11 +1,11 @@
 import { Observable, Subject } from 'rxjs'; 
 
 export default class HttpCaller {
-  private _url = 'https://jsonplaceholder.typicode.com/posts';
+  private _url = '';
   responseListener = new Subject<string>();
 
   constructor(url: string) {
-    // this.url = url;
+    this._url = url;
     this.getData();
   }
 
@@ -36,8 +36,5 @@ export default class HttpCaller {
         })        
         
       })
-      .then(function(myJson) {
-        console.log(JSON.stringify(myJson));
-      });
   }
 }

@@ -1,28 +1,16 @@
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 import  HttpCaller from './httpCaller';
+import { PubonObjectTypes, PubonObjectPublisher } from './pubonObjectPublisher';
 
-export class Posts {
-    dataSub: Subscription;
+export class Pubon {
+    constructor() {
 
-    constructor() {        
     }
 
-    getPosts() {
-       const caller = new HttpCaller("https://jsonplaceholder.typicode.com/posts");
-   
-        this.dataSub = caller.ResponseListener()
-        .subscribe((response: string) => {
-           document.getElementById("code").innerHTML = response;
-           console.log('Hello from Typescript');
-        });   
-   }
+    subscribeToPublisher(type: PubonObjectTypes, url: string): Observable {
+        const pop = new PubonObjectPublisher(type, url);
+
+        return pop; 
+    }
 }
-
-function start() {
-    const posts = new Posts();
-    posts.getPosts();
-
-}
-
-start();
